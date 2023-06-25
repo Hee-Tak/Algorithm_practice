@@ -89,3 +89,35 @@ fun main() {
  * 정점 2와 정점 3은 간선으로 연결되어 있으며, 가중치는 2입니다.
  * 정점 3과 정점 4는 간선으로 연결되어 있으며, 가중치는 1입니다.
  */
+
+
+fun a(){
+    val graph1 = arrayOf(
+        intArrayOf(0, 2, 0, 0, 6, 8, 0, 0, 0),  //0
+        intArrayOf(2, 0, 15, 0, 0, 0, 9, 0, 0), //1
+        intArrayOf(0, 15, 0, 2, 0, 0, 1, 0, 0), //2
+        intArrayOf(0, 0, 2, 0, 0, 0, 0, 0, 7),  //3
+        intArrayOf(6, 0, 0, 0, 0, 6, 0, 3, 0),  //4
+        intArrayOf(8, 0, 0, 0, 6, 0, 4, 0, 0),  //5
+        intArrayOf(0, 9, 1, 0, 0, 4, 0, 5, 11), //6
+        intArrayOf(0, 0, 0, 0, 3, 0, 5, 0, 12), //7
+        intArrayOf(0, 0, 0, 7, 0, 0, 11, 12, 0) //8
+    )
+
+    val graph2 = arrayOf(   //시작노드, 인접노드, 가중치
+        intArrayOf(0, 1, 2),
+        intArrayOf(0, 5, 8),
+        intArrayOf(0, 4, 6),
+        intArrayOf(1, 2, 15),
+        intArrayOf(1, 6, 9),
+        intArrayOf(2, 3, 2),
+        intArrayOf(2, 6, 1),
+        intArrayOf(3, 8, 7),
+        intArrayOf(4, 5, 6),
+        intArrayOf(4, 7, 3),
+        intArrayOf(5, 6, 4),
+        intArrayOf(6, 7, 5),
+        intArrayOf(6, 8, 11),
+        intArrayOf(7, 8, 12)
+    )
+}
