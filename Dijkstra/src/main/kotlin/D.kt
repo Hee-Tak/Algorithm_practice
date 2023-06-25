@@ -54,10 +54,28 @@ fun main() {
     for (i in dist.indices) {
         println("Vertex $i: ${dist[i]}")
     }
+    println("========================================")
+
+    val graph1 = arrayOf(
+        intArrayOf(0, 1, 0, 2, 0),
+        intArrayOf(1, 0, 3, 0, 2),
+        intArrayOf(0, 3, 0, 0, 1),
+        intArrayOf(2, 0, 0, 0, 2),
+        intArrayOf(0, 2, 1, 2, 0)
+    )
+
+    val sol1 = Solution()
+    val start1 = 0
+    val dist1 = sol1.dijkstra(graph1, start1)
+
+    println("Shortest distances from vertex $start:")
+    for(i in dist1.indices){
+        println("Vertex $i: ${dist1[i]}")
+    }
+    println("==============================================")
 }
 
 /**
- *
  *     val graph = arrayOf(
  *         intArrayOf(0, 1, 0, 0, 2),
  *         intArrayOf(1, 0, 3, 0, 0),
@@ -65,10 +83,6 @@ fun main() {
  *         intArrayOf(0, 0, 2, 0, 1),
  *         intArrayOf(2, 0, 0, 1, 0)
  *     )
- *
- *
- *
- *
  * 정점 0과 정점 1은 간선으로 연결되어 있으며, 가중치는 1입니다.
  * 정점 0과 정점 4는 간선으로 연결되어 있으며, 가중치는 2입니다.
  * 정점 1과 정점 2는 간선으로 연결되어 있으며, 가중치는 3입니다.
