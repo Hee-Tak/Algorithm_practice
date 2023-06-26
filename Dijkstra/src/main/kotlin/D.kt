@@ -22,6 +22,39 @@ class Solution {
         return dist
     }
 
+    fun dijkstraTrack(graph: Array<IntArray>, start: Int, end: Int): Pair<Int, List<Int>> {
+        val n = graph.size
+        val dist = IntArray(n) { Int.MAX_VALUE }
+        val visited = BooleanArray(n)
+        val previous = IntArray(n) { -1 }
+
+        dist[start] = 0
+
+        for(i in 0 until n){
+            val u = findMinDistance(dist, visited)
+            visited[u] = true
+
+            for(v in 0 until n){
+                if(!visited[v] && graph[u][v] != 0 && dist[u] != Int.MAX_VALUE && dist[u]+graph[u][v] < dist[v]){
+                    dist[v] = dist[u] + graph[u][v]
+                    previous[v] = u
+                }
+            }
+        }
+
+        val path = mutableListOf<Int>()
+        var current = end
+        while(current != -1){
+            path.add(current)
+            current = previous[current]
+        }
+
+        path.reverse()
+        return Pair(dist[end], path)
+
+    }
+
+
     private fun findMinDistance(dist: IntArray, visited: BooleanArray): Int {
         var min = Int.MAX_VALUE
         var minIndex = -1
@@ -73,6 +106,26 @@ fun main() {
         println("Vertex $i: ${dist1[i]}")
     }
     println("==============================================")
+
+    val graph2 = a()
+    val sol2 = Solution()
+    val start2 = 0
+    val dist2 = sol2.dijkstra(graph2, start2)
+    println("시작정점 ${start}으로부터의 최단 거리")
+    for(i in dist2.indices){
+        println("Vertex $i: ${dist2[i]}")
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /**
@@ -91,8 +144,8 @@ fun main() {
  */
 
 
-fun a(){
-    val graph1 = arrayOf(
+fun a(): Array<IntArray>{
+    val graph1 = arrayOf( //인접행렬
         intArrayOf(0, 2, 0, 0, 6, 8, 0, 0, 0),  //0
         intArrayOf(2, 0, 15, 0, 0, 0, 9, 0, 0), //1
         intArrayOf(0, 15, 0, 2, 0, 0, 1, 0, 0), //2
@@ -102,7 +155,8 @@ fun a(){
         intArrayOf(0, 9, 1, 0, 0, 4, 0, 5, 11), //6
         intArrayOf(0, 0, 0, 0, 3, 0, 5, 0, 12), //7
         intArrayOf(0, 0, 0, 7, 0, 0, 11, 12, 0) //8
-    )
+    ) // 인접 행렬 형태의 그래프
+    // 노드들 간의 연결 관계를 2차원 배열로 나타내는 방식
 
     val graph2 = arrayOf(   //시작노드, 인접노드, 가중치
         intArrayOf(0, 1, 2),
@@ -119,5 +173,8 @@ fun a(){
         intArrayOf(6, 7, 5),
         intArrayOf(6, 8, 11),
         intArrayOf(7, 8, 12)
-    )
+    ) // 간선의 정보를 인접 리스트 형태로 표현한 것
+
+    return graph1
 }
+
