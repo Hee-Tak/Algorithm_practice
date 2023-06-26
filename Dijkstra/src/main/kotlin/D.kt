@@ -273,3 +273,42 @@ class adjListGraph(val n: Int){
         return Pair(dist[end], path)
     }
 }
+
+
+/**
+ * 아래는 인접행렬 다익스트라
+ */
+fun dijkstra4(graph: Array<IntArray>, start: Int, end: Int): Int {
+    val n = graph.size
+    val dist = IntArray(n) { Int.MAX_VALUE }
+    val visited = BooleanArray(n)
+
+    dist[start] = 0
+
+    for (i in 0 until n) {
+        val u = findMinDistance1(dist, visited)
+        visited[u] = true
+
+        for (v in 0 until n) {
+            if (!visited[v] && graph[u][v] != 0 && dist[u] != Int.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) {
+                dist[v] = dist[u] + graph[u][v]
+            }
+        }
+    }
+
+    return dist[end]
+}
+
+private fun findMinDistance1(dist: IntArray, visited: BooleanArray): Int {
+    var min = Int.MAX_VALUE
+    var minIndex = -1
+
+    for (v in dist.indices) {
+        if (!visited[v] && dist[v] <= min) {
+            min = dist[v]
+            minIndex = v
+        }
+    }
+
+    return minIndex
+}
