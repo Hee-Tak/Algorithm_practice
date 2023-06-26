@@ -1,7 +1,7 @@
 import java.util.*
 
 class Solution {
-    fun dijkstra(graph: Array<IntArray>, start: Int): IntArray {    //인접리스트 방식 그래프 꺼먹음
+    fun dijkstra(graph: Array<IntArray>, start: Int): IntArray {    //인접 행렬 방식 그래프 꺼먹음
         val n = graph.size
         val dist = IntArray(n) { Int.MAX_VALUE }
         val visited = BooleanArray(n)
