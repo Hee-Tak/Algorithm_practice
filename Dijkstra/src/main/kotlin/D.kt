@@ -156,6 +156,15 @@ fun main() {
     println("최단 거리 : $shortestDistance1")
     println("최단 경로 : $shortestPath1")
 
+    println("===============================================================")
+
+    val graph4 = b()
+    val start4 = 0
+    val end4 = 6
+    val (distance4, shortestPath4) = graph4.dijkstra2(start4, end4)
+    println("인접 리스트 Shortest distance from $start4 to $end4 : $distance4")
+    println("인접 리스트 Shortest path: $shortestPath4")
+
 
 }
 
@@ -224,5 +233,43 @@ class adjListGraph(val n: Int){
     fun addEdge(u: Int, v: Int, weight: Int){
         adjList[u].add(Pair(v, weight))
         adjList[v].add(Pair(u, weight)) // 무방향 그래프인 경우 추가
+    }
+
+    fun dijkstra2(start: Int, end: Int): Pair<Int, List<Int>> {
+        val dist = IntArray(n) { Int.MAX_VALUE }
+        val previous = IntArray(n) { -1 }
+        val visited = BooleanArray(n)
+
+        dist[start] = 0
+
+        val priorityQueue = PriorityQueue<Pair<Int, Int>>(compareBy { it.second })
+        priorityQueue.offer(Pair(start, 0))
+
+        while(priorityQueue.isNotEmpty()){
+            val (current, _) = priorityQueue.poll()
+
+            if(visited[current]) continue
+
+            visited[current] = true
+
+            for((neighbour, weight) in adjList[current]){
+                val newDistance = dist[current] + weight
+                if(newDistance < dist[neighbour]) {
+                    dist[neighbour] = newDistance
+                    previous[neighbour] = current
+                    priorityQueue.offer(Pair(neighbour, newDistance))
+                }
+            }
+        }
+
+        val path = mutableListOf<Int>()
+        var current = end
+        while(current != -1){
+            path.add(current)
+            current = previous[current]
+        }
+        path.reverse()
+
+        return Pair(dist[end], path)
     }
 }
