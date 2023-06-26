@@ -1,7 +1,7 @@
 import java.util.*
 
 class Solution {
-    fun dijkstra(graph: Array<IntArray>, start: Int): IntArray {
+    fun dijkstra(graph: Array<IntArray>, start: Int): IntArray {    //인접리스트 방식 그래프 꺼먹음
         val n = graph.size
         val dist = IntArray(n) { Int.MAX_VALUE }
         val visited = BooleanArray(n)
@@ -110,13 +110,20 @@ fun main() {
     val graph2 = a()
     val sol2 = Solution()
     val start2 = 0
+
     val dist2 = sol2.dijkstra(graph2, start2)
     println("시작정점 ${start}으로부터의 최단 거리")
     for(i in dist2.indices){
         println("Vertex $i: ${dist2[i]}")
     }
-
-
+    println("=============================================")
+    val end2 = 8
+    val result = sol2.dijkstraTrack(graph2, start2, end2)
+    val shortestDistance = result.first
+    val shortestPath = result.second
+    println("Shortest Distance : $shortestDistance")
+    println("Shartest Path : $shortestPath")
+    println("=============================================")
 
 
 
@@ -144,7 +151,7 @@ fun main() {
  */
 
 
-fun a(): Array<IntArray>{
+fun a(): Array<IntArray>{   //인접 행렬 방식
     val graph1 = arrayOf( //인접행렬
         intArrayOf(0, 2, 0, 0, 6, 8, 0, 0, 0),  //0
         intArrayOf(2, 0, 15, 0, 0, 0, 9, 0, 0), //1
@@ -158,23 +165,40 @@ fun a(): Array<IntArray>{
     ) // 인접 행렬 형태의 그래프
     // 노드들 간의 연결 관계를 2차원 배열로 나타내는 방식
 
-    val graph2 = arrayOf(   //시작노드, 인접노드, 가중치
-        intArrayOf(0, 1, 2),
-        intArrayOf(0, 5, 8),
-        intArrayOf(0, 4, 6),
-        intArrayOf(1, 2, 15),
-        intArrayOf(1, 6, 9),
-        intArrayOf(2, 3, 2),
-        intArrayOf(2, 6, 1),
-        intArrayOf(3, 8, 7),
-        intArrayOf(4, 5, 6),
-        intArrayOf(4, 7, 3),
-        intArrayOf(5, 6, 4),
-        intArrayOf(6, 7, 5),
-        intArrayOf(6, 8, 11),
-        intArrayOf(7, 8, 12)
-    ) // 간선의 정보를 인접 리스트 형태로 표현한 것
 
     return graph1
 }
 
+fun b(): adjListGraph {     //인접 리스트 방식
+    val n = 9
+    val graph = adjListGraph(n)
+    graph.addEdge(0, 1, 2)
+    graph.addEdge(0, 5, 8)
+    graph.addEdge(0, 4, 6)
+    graph.addEdge(1, 2, 15)
+    graph.addEdge(1, 6, 9)
+    graph.addEdge(2, 3, 2)
+    graph.addEdge(2, 6, 1)
+    graph.addEdge(3, 8, 7)
+    graph.addEdge(4, 5, 6)
+    graph.addEdge(4, 7, 3)
+    graph.addEdge(5, 6, 4)
+    graph.addEdge(6, 7, 5)
+    graph.addEdge(6, 8, 11)
+    graph.addEdge(7, 8, 12)
+
+    return graph
+
+
+    //시작노드, 인접노드, 가중치
+    // 간선의 정보를 인접 리스트 형태로 표현한 것
+}
+
+class adjListGraph(val n: Int){
+    val adjList: MutableList<MutableList<Pair<Int, Int>>> = MutableList(n) { mutableListOf() }
+
+    fun addEdge(u: Int, v: Int, weight: Int){
+        adjList[u].add(Pair(v, weight))
+        adjList[v].add(Pair(u, weight)) // 무방향 그래프인 경우 추가
+    }
+}
