@@ -117,19 +117,44 @@ fun main() {
         println("Vertex $i: ${dist2[i]}")
     }
     println("=============================================")
+
     val end2 = 8
     val result = sol2.dijkstraTrack(graph2, start2, end2)
     val shortestDistance = result.first
     val shortestPath = result.second
     println("Shortest Distance : $shortestDistance")
     println("Shartest Path : $shortestPath")
+
     println("=============================================")
 
+    val graph3 = a()
+    val sol3 = Solution()
 
+    print("시작 노드를 입력하세요(0 ~ 8): ")
+    var start3 = readLine()?.toInt()
+    if(start3 !in 0..8){
 
+        println("좀 똑바로 입력하지 에휴")
+        start3 = (0..8).random()
+    }
+    println("시작노드 : $start3")
+    print("목표 노드를 입력하세요(0 ~ 8): ")
+    var end3 = readLine()?.toInt()
+    if(end3 !in 0..8){ //|| end3 == start)
 
+        println("이것도 제대로 안뽑아?")
+        //do{
+        //    end3 = (0..8).random()
+        //} while(end3 == start3)
+        end3 = (0..8).random()
+    }
+    println("목표노드 : $end3")
 
-
+    val result1 = sol2.dijkstraTrack(graph3, start3!!, end3!!)
+    val shortestDistance1 = result1.first
+    val shortestPath1 = result1.second
+    println("최단 거리 : $shortestDistance1")
+    println("최단 경로 : $shortestPath1")
 
 
 
