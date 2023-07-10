@@ -1,3 +1,4 @@
+//1차 코드
 class Solution {
     fun solution(numbers: IntArray, hand: String): String {
         var answer = ""
@@ -94,6 +95,122 @@ class Solution {
 }
 
 /**
- * 이거 아직 안되는 버전
+ * 이거 아직 안되는 버전 (내가 머리 굴려서 짜낸거)
  *
+ */
+
+
+
+//2차 코드
+
+class Solution {
+    fun solution(numbers: IntArray, hand: String): String {
+        var answer = ""
+        var left = Pair(3, 0)   //왼손 초기 위치 *
+        var right = Pair(3, 2)  //오른손 초기 위치 #
+
+        for(number in numbers){
+            when(number){
+                1, 4, 7 -> {
+                    answer += "L"
+                    left = Pair((number -1) / 3, 0)
+                }
+                3, 6, 9 -> {
+                    answer += "R"
+                    right = Pair(number / 3, 2)
+                }
+                else -> {   //가운데 열 숫자
+                    val target = if(number == 0) Pair(3, 1) else Pair((number - 1) / 3, 1)
+                    val leftDistance = calculateDistance(left, target)
+                    val rightDistance = calculateDistance(right, target)
+
+                    if(leftDistance < rightDistance){
+                        answer += "L"
+                        left = target
+                    } else if(rightDistance < leftDistance){
+                        answer += "R"
+                        right = target
+                    } else {
+                        if(hand == "left"){
+                            answer += "L"
+                            left = target
+                        } else {
+                            answer += "R"
+                            right = target
+                        }
+                    }
+                }
+            }
+        }
+        return answer
+    }
+
+    private fun calculateDistance(hand: Pair<Int, Int>, target: Pair<Int, Int>) : Int {
+        return Math.abs(hand.first - target.first) + Math.abs(hand.second - target.second)
+    }
+
+
+}
+
+//========================================================================
+// 3차 코드 : 해결 (+2점)
+class Solution {
+    fun solution(numbers: IntArray, hand: String): String {
+        var answer = ""
+        var left = Pair(3, 0)   //왼손 초기 위치 *
+        var right = Pair(3, 2)  //오른손 초기 위치 #
+
+        for(number in numbers){
+            when(number){
+                1, 4, 7 -> {
+                    answer += "L"
+                    left = Pair((number -1) / 3, 0)
+                }
+                3, 6, 9 -> {
+                    answer += "R"
+                    right = Pair((number-3) / 3, 2)
+                }
+                else -> {   //가운데 열 숫자
+                    val target = if(number == 0) Pair(3, 1) else Pair((number - 2) / 3, 1)
+                    val leftDistance = calculateDistance(left, target)
+                    val rightDistance = calculateDistance(right, target)
+
+                    if(leftDistance < rightDistance){
+                        answer += "L"
+                        left = target
+                    } else if(rightDistance < leftDistance){
+                        answer += "R"
+                        right = target
+                    } else {
+                        if(hand == "left"){
+                            answer += "L"
+                            left = target
+                        } else {
+                            answer += "R"
+                            right = target
+                        }
+                    }
+                }
+            }
+        }
+        return answer
+    }
+
+    private fun calculateDistance(hand: Pair<Int, Int>, target: Pair<Int, Int>) : Int {
+        return Math.abs(hand.first - target.first) + Math.abs(hand.second - target.second)
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/**
+ * level 1) [카카오 인턴] 키패드 누르기 (정답률 50%)
+ * https://school.programmers.co.kr/learn/courses/30/lessons/67256
  */
