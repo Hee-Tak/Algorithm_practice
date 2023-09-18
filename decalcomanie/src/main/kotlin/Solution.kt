@@ -28,13 +28,15 @@ class Solution {
             }
         }
 
+        /*
         for(i in 0 until n1){
             for(j in 0 until m1){
                 print("${paper[i][j]} ")
             }
             println()
-        }
-
+        }//마지막까지 접은 paper 확인
+        */
+        //=======================여기 위까진 ok. paper 됐음
 
         for (i in 1..ncount) {
             paper = expandVertically(paper)
@@ -50,16 +52,32 @@ class Solution {
     private fun expandVertically(matrix: Array<IntArray>): Array<IntArray> {
         val numRows = matrix.size
         val numCols = matrix[0].size
-
-        val resultMatrix = Array(numRows * 2) { IntArray(numCols) }
+        val p = numRows * 2
+        val q = numCols
+        val resultMatrix = Array(p) { IntArray(q) }
 
         for (i in 0 until numRows) {
             for (j in 0 until numCols) {
-                val value = matrix[i][j]
-                resultMatrix[i * 2][j] = value
-                resultMatrix[i * 2 + 1][j] = value
+                resultMatrix[i][j] = matrix[i][j]
             }
         }
+
+        for(i in numRows until p){
+            for(j in 0 until q){
+                resultMatrix[i][j] = matrix[p-1-i][j]
+            }
+        }
+
+        /*
+        println("***************************")
+        for(i in 0 until p){
+            for(j in 0 until q){
+                print("${resultMatrix[i][j]} ")
+            }
+            println()
+        }
+        println("***************************")
+        */
 
         return resultMatrix
     }
@@ -67,16 +85,32 @@ class Solution {
     private fun expandHorizontally(matrix: Array<IntArray>): Array<IntArray> {
         val numRows = matrix.size
         val numCols = matrix[0].size
+        val p = numRows
+        val q = numCols * 2
 
-        val resultMatrix = Array(numRows) { IntArray(numCols * 2) }
+        val resultMatrix = Array(p) { IntArray(q) }
 
         for (i in 0 until numRows) {
             for (j in 0 until numCols) {
                 val value = matrix[i][j]
-                resultMatrix[i][j * 2] = value
-                resultMatrix[i][j * 2 + 1] = value
+                resultMatrix[i][j] = value
+            }
+
+            for(j in numCols until q){
+                resultMatrix[i][j] = matrix[i][q-1-j]
             }
         }
+
+        /*
+        println("+++++++++++++++++++++++++++++")
+        for(i in 0 until p){
+            for(j in 0 until q){
+                print("${resultMatrix[i][j]} ")
+            }
+            println()
+        }
+        println("+++++++++++++++++++++++++++++")
+        */
 
         return resultMatrix
     }
