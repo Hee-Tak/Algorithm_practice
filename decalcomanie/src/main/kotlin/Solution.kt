@@ -1,17 +1,17 @@
 class Solution {
     fun solution(n: Int, m: Int, fold: IntArray, cut: Array<IntArray>): Array<IntArray> {
-        var n1 = n
-        var m1 = m
+        var n1 = n      //8
+        var m1 = m      //6
         var ncount = 0
         var mcount = 0
 
-        for (f in fold) {
+        for (f in fold) {   //1 ,-1, -1
             when (f) {
-                1 -> {
+                -1 -> {
                     n1 /= 2
                     ncount++
                 }
-                -1 -> {
+                1 -> {
                     m1 /= 2
                     mcount++
                 }
@@ -27,6 +27,14 @@ class Solution {
                 paper[i][j] = 0
             }
         }
+
+        for(i in 0 until n1){
+            for(j in 0 until m1){
+                print("${paper[i][j]} ")
+            }
+            println()
+        }
+
 
         for (i in 1..ncount) {
             paper = expandVertically(paper)
