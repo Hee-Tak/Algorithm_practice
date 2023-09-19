@@ -12,6 +12,7 @@ class Solution {
         //임시값
         taste = "CS"
         icecream = taste
+
     }
 }
 
